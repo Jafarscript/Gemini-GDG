@@ -1,0 +1,111 @@
+<html>
+  <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
+<script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+<df-messenger
+  project-id="build-with-ai-420814"
+  agent-id="25fce4fb-061a-4156-81db-37895c249940"
+  language-code="en"
+  max-query-length="-1">
+  <df-messenger-chat-bubble
+   chat-title="">
+  </df-messenger-chat-bubble>
+</df-messenger>
+<style>
+  df-messenger {
+    z-index: 999;
+    position: fixed;
+    --df-messenger-font-color: #000;
+    --df-messenger-font-family: Google Sans;
+    --df-messenger-chat-background: #f3f6fc;
+    --df-messenger-message-user-background: #d3e3fd;
+    --df-messenger-message-bot-background: #fff;
+    bottom: 16px;
+    right: 16px;
+  }
+</style>
+    <style>
+        code{
+            display: block;
+        }
+        .runArea{
+            background-color: antiquewhite;
+            padding: 20px;
+        }
+        input{
+            width: 90%;
+            padding: 10px 20px;
+            outline: none;
+        }
+        button{
+            background-color: rgb(14, 171, 69);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+  <body>
+    <h1>Gemini</h1>
+    <h3>Question</h3>
+    <div class="runArea">
+        <input type="text" class="ask">
+    <button class="run">Run</button>
+    </div>
+    <code class="response">Jafar</code>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+    <script type="module">
+      import { GoogleGenerativeAI } from "@google/generative-ai";
+
+      // Fetch your API_KEY
+      const API_KEY = "AIzaSyBnbkWu2AZpynSh2tJuwtWQBw39kjcFuTA";
+      let para = document.querySelector(".response")
+      let ask = document.querySelector(".ask")
+      let runBtn = document.querySelector(".run")
+      let quest
+
+      // Access your API key (see "Set up your API key" above)
+      const genAI = new GoogleGenerativeAI(API_KEY);
+
+      // ...
+      async function run(question) {
+        // For text-only input, use the gemini-pro model
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+        // let prompt = question;
+        // console.log(prompt)
+
+        const result = await model.generateContent(question);
+        const response = await result.response;
+        const text = response.text();
+        para.innerHTML = text
+        // console.log(para)
+        console.log(text);
+      }
+
+
+    //   run()
+
+    //   runBtn.addEventListener("click", function () {})
+    //   console.log(runBtn)
+
+    // ask.addEventListener("change",(e) => {
+    //     run(e.target.value)
+    // })
+
+    runBtn.addEventListener("click", function () {
+        quest = ask.value
+        run(quest)
+      })
+
+
+      // ...
+    </script>
+  </body>
+</html>
